@@ -34,7 +34,7 @@
                     ['label' => 'Dashboard', 'icon' => 'home', 'url' => ['/site']],
                     ['label' => 'Daftar Tanaman', 'icon' => 'list', 'url' => ['/tanaman']],
                     ['label' => 'Klasifikasi Data', 'icon' => 'list-alt', 'url' => ['/data-training/index']],
-                    ['label' => 'Data Komposisi Lingkungan', 'icon' => 'file-code-o', 'url' => ['/gii']],
+                    // ['label' => 'Data Komposisi Lingkungan', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     // ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                     // ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                     // [

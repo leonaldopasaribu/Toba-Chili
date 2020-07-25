@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="inner">
                     <h2><b>Import Data Training</b></h2><br>
                     <br>
-                    <?= Html::button('Import Data <i class="fa fa-fw fa-upload"></i>', ['value' => Url::to(['import']), 'title' => 'Import Data Training', 'class' => 'showModalButton btn btn-success']); ?>
+                    <?= Html::button('Import Data <i class="fa fa-fw fa-upload"></i>', ['value' => Url::to(['training']), 'title' => 'Import Data Training', 'class' => 'showModalButton btn btn-success']); ?>
                 </div>
                 <div class="icon">
                     <i class="fa fa-upload"></i>
@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="inner">
                     <h2><b>Import Data Testing</b></h2><br>
                     <br>
-                    <?= Html::button('Import Data <i class="fa fa-fw fa-upload"></i>', ['value' => Url::to(['import']), 'title' => 'Import Data Testing', 'class' => 'showModalButton btn btn-success']); ?>
+                    <?= Html::button('Import Data <i class="fa fa-fw fa-upload"></i>', ['value' => Url::to(['testing']), 'title' => 'Import Data Testing', 'class' => 'showModalButton btn btn-success']); ?>
                 </div>
                 <div class="icon">
                     <i class="fa fa-upload"></i>
@@ -61,61 +61,45 @@ $this->params['breadcrumbs'][] = $this->title;
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
                         [
-                            'attribute' => 'waktuPencatatan',
-                            'label' => 'Waktu Pencacatan',
-                            'format' => 'raw',
-                            'headerOptions' => ['style' => 'color:#3c8dbc'],
-                            'value' => function ($model, $key, $index) {
-                                if ($model->waktuPencatatan == NULL) {
-                                    return '-';
-                                } else {
-                                    return date('d M Y H:i', strtotime($model->waktuPencatatan));
-                                }
-                            },
-                            'filter' => DateTimePicker::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'waktuPencatatan',
-                                'template' => '{input}{reset}{button}',
-                                'clientOptions' => [
-                                    'startView' => 2,
-                                    'minView' => 2,
-                                    'maxView' => 2,
-                                    'autoclose' => true,
-                                    'format' => 'yyyy-mm-dd - HH:ii P',
-                                ],
-                            ])
-                        ],
-
-                        [
-                            'attribute' => 'idTanaman',
-                            'label' => 'Tanaman',
-                            'filter' => ArrayHelper::map(Tanaman::find()->orderBy(['idTanaman' => SORT_ASC])->all(), 'labelTanaman', 'labelTanaman'),
-                            'filterInputOptions' => ['class' => 'form-control', 'id' => null, 'prompt' => 'ALL'],
+                            'attribute' => 'suhu_min',
+                            'label' => 'Suhu Minimum',
                             'value' => function ($data) {
-                                return $data->tanaman->labelTanaman;
+                                return $data->suhu_min;
                             }
                         ],
 
                         [
-                            'attribute' => 'idZonaWaktu',
-                            'label' => 'Zona Waktu',
-                            'filter' => ArrayHelper::map(ZonaWaktu::find()->orderBy(['idZonaWaktu' => SORT_ASC])->all(), 'namaZonaWaktu', 'namaZonaWaktu'),
-                            'filterInputOptions' => ['class' => 'form-control', 'id' => null, 'prompt' => 'ALL'],
+                            'attribute' => 'kelembabanUdara_maximum',
+                            'label' => 'Kelembaban Udara Max',
                             'value' => function ($data) {
-                                return $data->zonaWaktu->namaZonaWaktu;
+                                return $data->kelembabanUdara_maximum;
                             }
                         ],
 
                         [
-                            'attribute' => 'kondisiDaun',
-                            'label' => 'Kondisi Daun',
+                            'attribute' => 'kelembabanUdara_minimum',
+                            'label' => 'Kelembaban Udara Min',
+                            'value' => function ($data) {
+                                return $data->kelembabanUdara_maximum;
+                            }
+                        ],
+
+                        [
+                            'attribute' => 'kelembabanUdara_avg',
+                            'label' => 'Kelembaban Udara Avg',
+                            'value' => function ($data) {
+                                return $data->kelembabanUdara_maximum;
+                            }
+                        ],
+
+                        [
+                            'attribute' => 'kondisi_actual',
+                            'label' => 'Kondisi Actual',
                             'format' => 'raw',
-                            'filter' => ['0' => 'Tidak Sehat', '1' => 'Sehat'],
-                            'filterInputOptions' => ['class' => 'form-control', 'id' => null, 'prompt' => 'ALL'],
                             'value' => function ($model) {
-                                if ($model->kondisiDaun == 1) {
+                                if ($model->kondisi_actual == "Sehat") {
                                     return '<b class="text-success">Sehat</b>';
-                                } else if ($model->kondisiDaun == 0) {
+                                } else if ($model->kondisi_actual == "Tidak Sehat") {
                                     return '<b class="text-danger">Tidak Sehat</b>';
                                 } else {
                                     return '<b class="text-warning"> - </b>';
@@ -123,7 +107,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             }
                         ],
 
-                        //['class' => 'yii\grid\ActionColumn'],
                     ],
                 ]); ?>
             </div>
@@ -133,67 +116,51 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-md-6">
                 <h3>Tabel Data Testing</h3>
                 <?= GridView::widget([
-                    'dataProvider' => $dataProvider,
-                    'filterModel' => $searchModel,
+                    'dataProvider' => $dataProvider2,
+                    'filterModel' => $searchModel2,
                     'tableOptions' => ['class' => 'table table-stripped table-condensed table-bordered'],
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
                         [
-                            'attribute' => 'waktuPencatatan',
-                            'label' => 'Waktu Pencacatan',
-                            'format' => 'raw',
-                            'headerOptions' => ['style' => 'color:#3c8dbc'],
-                            'value' => function ($model, $key, $index) {
-                                if ($model->waktuPencatatan == NULL) {
-                                    return '-';
-                                } else {
-                                    return date('d M Y H:i', strtotime($model->waktuPencatatan));
-                                }
-                            },
-                            'filter' => DateTimePicker::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'waktuPencatatan',
-                                'template' => '{input}{reset}{button}',
-                                'clientOptions' => [
-                                    'startView' => 2,
-                                    'minView' => 2,
-                                    'maxView' => 2,
-                                    'autoclose' => true,
-                                    'format' => 'yyyy-mm-dd - HH:ii P',
-                                ],
-                            ])
-                        ],
-
-                        [
-                            'attribute' => 'idTanaman',
-                            'label' => 'Tanaman',
-                            'filter' => ArrayHelper::map(Tanaman::find()->orderBy(['idTanaman' => SORT_ASC])->all(), 'labelTanaman', 'labelTanaman'),
-                            'filterInputOptions' => ['class' => 'form-control', 'id' => null, 'prompt' => 'ALL'],
+                            'attribute' => 'suhu_min',
+                            'label' => 'Suhu Minimum',
                             'value' => function ($data) {
-                                return $data->tanaman->labelTanaman;
+                                return $data->suhu_min;
                             }
                         ],
 
                         [
-                            'attribute' => 'idZonaWaktu',
-                            'label' => 'Zona Waktu',
-                            'filter' => ArrayHelper::map(ZonaWaktu::find()->orderBy(['idZonaWaktu' => SORT_ASC])->all(), 'namaZonaWaktu', 'namaZonaWaktu'),
-                            'filterInputOptions' => ['class' => 'form-control', 'id' => null, 'prompt' => 'ALL'],
+                            'attribute' => 'kelembabanUdara_maximum',
+                            'label' => 'Kelembaban Udara Max',
                             'value' => function ($data) {
-                                return $data->zonaWaktu->namaZonaWaktu;
+                                return $data->kelembabanUdara_maximum;
                             }
                         ],
 
                         [
-                            'attribute' => 'kondisiDaun',
-                            'label' => 'Kondisi Daun',
+                            'attribute' => 'kelembabanUdara_minimum',
+                            'label' => 'Kelembaban Udara Min',
+                            'value' => function ($data) {
+                                return $data->kelembabanUdara_maximum;
+                            }
+                        ],
+
+                        [
+                            'attribute' => 'kelembabanUdara_avg',
+                            'label' => 'Kelembaban Udara Avg',
+                            'value' => function ($data) {
+                                return $data->kelembabanUdara_maximum;
+                            }
+                        ],
+
+                        [
+                            'attribute' => 'kondisi_actual',
+                            'label' => 'Kondisi Actual',
                             'format' => 'raw',
-                            'filter' => ['0' => 'Tidak Sehat', '1' => 'Sehat'],
-                            'filterInputOptions' => ['class' => 'form-control', 'id' => null, 'prompt' => 'ALL'],
                             'value' => function ($model) {
-                                if ($model->kondisiDaun == 1) {
+                                if ($model->kondisi_actual == "Sehat") {
                                     return '<b class="text-success">Sehat</b>';
-                                } else if ($model->kondisiDaun == 0) {
+                                } else if ($model->kondisi_actual == "Tidak Sehat") {
                                     return '<b class="text-danger">Tidak Sehat</b>';
                                 } else {
                                     return '<b class="text-warning"> - </b>';
@@ -201,14 +168,27 @@ $this->params['breadcrumbs'][] = $this->title;
                             }
                         ],
 
-                        //['class' => 'yii\grid\ActionColumn'],
+                        [
+                            'attribute' => 'kondisi_predict',
+                            'label' => 'Kondisi Actual',
+                            'format' => 'raw',
+                            'value' => function ($model) {
+                                if ($model->kondisi_predict == "Sehat") {
+                                    return '<b class="text-success">Sehat</b>';
+                                } else if ($model->kondisi_predict == "Tidak Sehat") {
+                                    return '<b class="text-danger">Tidak Sehat</b>';
+                                } else {
+                                    return '<b class="text-warning"> - </b>';
+                                }
+                            }
+                        ],
                     ],
                 ]); ?>
             </div>
         </div>
+    
+        <center><?= Html::a('KLASIFIKASI DATA', ['predict'], ['class'=>'btn-lg btn-success grid-button']) ?></center>
 
-        <center><button class="btn-lg btn-success">KLASIFIKASI DATA</button></center>
-        <hr>
         <div class="content">
             <div class="row">
                 <div class="col-md-6 col-xs-12 col-md-offset-3">
@@ -224,8 +204,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             <i class="fa fa-leaf"></i>
                         </div> -->
                     </div>
-                </div>
-                <div class="row">
                 </div>
             </div>
         </div>

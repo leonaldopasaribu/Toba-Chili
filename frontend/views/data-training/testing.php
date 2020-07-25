@@ -2,7 +2,7 @@
 	use yii\widgets\ActiveForm;
 	use yii\helpers\Html;
 
-$this->title = 'Import Excel';
+$this->title = '';
 $this->params['breadcrumbs'][] = ['label' => 'List Alat', 'url' => ['index']];
 $this->params['breadcrumbs'][] = 'Import File';
 ?>
