@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
 use frontend\models\DataLingkungan;
+use frontend\models\DataTesting;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\search\TanamanSearch */
@@ -63,6 +64,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <!-- small box -->
                                 <div class="small-box bg-aqua">
                                     <div class="inner">
+<?php
+                                    $countSehat = DataTesting::find()->count();?>
                                         <h2><b><?php echo $row->labelTanaman; ?></b></h2>
                                         <h2><i><?php echo number_format($kondisiCount) ?> Data</i></h2>
                                         <br>

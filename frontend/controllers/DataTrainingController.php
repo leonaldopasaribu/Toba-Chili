@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use Exception;
 use Yii;
 use frontend\models\DataTraining;
 use frontend\models\DataTesting;
@@ -209,7 +210,7 @@ class DataTrainingController extends Controller
         ]);
     }
 
-    public function actionPredict()
+    public function actionKlasifikasi()
     {
         function classify($X, $n, $table, $id_data)
         {
@@ -274,14 +275,14 @@ class DataTrainingController extends Controller
             $result = array_keys($argmax, max($argmax));
             //print_r($result[0]);
 
-            $updateQuery = "UPDATE data_testf SET kondisi_predict = '$result[0]' WHERE id = '$id_data'";
+            //$updateQuery = "UPDATE data_testf SET kondisi_predict = '$result[0]' WHERE id = '$id_data'";
             $updateQuery = Yii::$app->db->createCommand("UPDATE data_testing SET kondisi_predict = '$result[0]' WHERE idTesting = '$id_data'");
 
-
-            if ($updateQuery->execute()) {
-                print_r($result[0]);
-            } else {
-                print_r("Error");
+            try {
+                $updateQuery->execute();
+                print_r("Sukses");
+            } catch (Exception $e) {
+                var_dump($e->getMessage());
             }
         }
         //Test case
@@ -300,7 +301,23 @@ class DataTrainingController extends Controller
                 'kelembabanUdara_avg' => $row['kelembabanUdara_avg']
             );
             classify($X, $n, $table, $row['idTesting']);
+            return $this->redirect(['predict']);
         }
+    }
+
+    public function actionPredict()
+    {
+        $searchModel = new DataTestingSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $countSehat = DataTesting::find()->count();
+        $countTidakSehat = DataTesting::find()->count();
+
+        return $this->render('predict', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            '$countSehat' => $countSehat,
+            '$countTidakSehat' => $countTidakSehat,
+        ]);
     }
 
     /**

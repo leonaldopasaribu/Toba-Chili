@@ -13,7 +13,7 @@ use dosamigos\datetimepicker\DateTimePicker;
 /* @var $searchModel frontend\models\search\TanamanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Klasifikasi Data';
+$this->title = 'Klasifikasi Data Feature';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="box box-primary" style="padding:10px">
@@ -170,7 +170,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         [
                             'attribute' => 'kondisi_predict',
-                            'label' => 'Kondisi Actual',
+                            'label' => 'Kondisi Predict',
                             'format' => 'raw',
                             'value' => function ($model) {
                                 if ($model->kondisi_predict == "Sehat") {
@@ -186,8 +186,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]); ?>
             </div>
         </div>
-    
-        <center><?= Html::a('KLASIFIKASI DATA', ['predict'], ['class'=>'btn-lg btn-success grid-button']) ?></center>
+
+        <br><br>
+        <center><?= Html::a('KLASIFIKASI DATA', ['klasifikasi'], ['class'=>'btn-lg btn-success grid-button']) ?></center>
 
         <div class="content">
             <div class="row">
