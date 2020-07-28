@@ -13,7 +13,7 @@ use dosamigos\datetimepicker\DateTimePicker;
 /* @var $searchModel frontend\models\search\TanamanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Klasifikasi Data';
+$this->title = 'Klasifikasi Data Feature';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="box box-primary" style="padding:10px">

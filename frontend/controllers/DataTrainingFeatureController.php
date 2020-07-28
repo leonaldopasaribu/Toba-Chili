@@ -4,18 +4,18 @@ namespace frontend\controllers;
 
 use Exception;
 use Yii;
-use frontend\models\DataTraining;
-use frontend\models\DataTesting;
-use frontend\models\search\DataTrainingSearch;
-use frontend\models\search\DataTestingSearch;
+use frontend\models\DataTrainingFeature;
+use frontend\models\DataTestingFeature;
+use frontend\models\search\DataTrainingFeatureSearch;
+use frontend\models\search\DataTestingFeatureSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DataTrainingController implements the CRUD actions for DataTraining model.
+ * DataTrainingFeatureController implements the CRUD actions for DataTrainingFeature model.
  */
-class DataTrainingController extends Controller
+class DataTrainingFeatureController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -33,14 +33,14 @@ class DataTrainingController extends Controller
     }
 
     /**
-     * Lists all DataTraining models.
+     * Lists all DataTrainingFeature models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new DataTrainingSearch();
+        $searchModel = new DataTrainingFeatureSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $searchModel2 = new DataTestingSearch();
+        $searchModel2 = new DataTestingFeatureSearch();
         $dataProvider2 = $searchModel2->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -52,7 +52,7 @@ class DataTrainingController extends Controller
     }
 
     /**
-     * Displays a single DataTraining model.
+     * Displays a single DataTrainingFeature model.
      * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -65,13 +65,13 @@ class DataTrainingController extends Controller
     }
 
     /**
-     * Creates a new DataTraining model.
+     * Creates a new DataTrainingFeature model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new DataTraining();
+        $model = new DataTrainingFeature();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idTraining]);
@@ -83,7 +83,7 @@ class DataTrainingController extends Controller
     }
 
     /**
-     * Updates an existing DataTraining model.
+     * Updates an existing DataTrainingFeature model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -103,7 +103,7 @@ class DataTrainingController extends Controller
     }
 
     /**
-     * Deletes an existing DataTraining model.
+     * Deletes an existing DataTrainingFeature model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -134,21 +134,13 @@ class DataTrainingController extends Controller
                 $sheetData = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
                 $baseRow = 2;
                 while (!empty($sheetData[$baseRow]['A'])) {
-                    $model = new \frontend\models\DataTesting();
+                    $model = new \frontend\models\DataTestingFeature();
 
-                    $model->ph_maximum = (string) $sheetData[$baseRow]['A'];
-                    $model->ph_minimum = (string) $sheetData[$baseRow]['B'];
-                    $model->ph_avg = (string) $sheetData[$baseRow]['C'];
-                    $model->kelembabanTanah_maximum = (string) $sheetData[$baseRow]['D'];
-                    $model->kelembabanTanah_minimum = (string) $sheetData[$baseRow]['E'];
-                    $model->kelembabanTanah_avg = (string) $sheetData[$baseRow]['F'];
-                    $model->suhu_max = (string) $sheetData[$baseRow]['G'];
-                    $model->suhu_min = (string) $sheetData[$baseRow]['H'];
-                    $model->suhu_avg = (string) $sheetData[$baseRow]['I'];
-                    $model->kelembabanUdara_maximum = (string) $sheetData[$baseRow]['J'];
-                    $model->kelembabanUdara_minimum = (string) $sheetData[$baseRow]['K'];
-                    $model->kelembabanUdara_avg = (string) $sheetData[$baseRow]['L'];
-                    $model->kondisi_actual = (string) $sheetData[$baseRow]['M'];
+                    $model->suhu_min = (string) $sheetData[$baseRow]['A'];
+                    $model->kelembabanUdara_maximum = (string) $sheetData[$baseRow]['B'];
+                    $model->kelembabanUdara_minimum = (string) $sheetData[$baseRow]['C'];
+                    $model->kelembabanUdara_avg = (string) $sheetData[$baseRow]['D'];
+                    $model->kondisi_actual = (string) $sheetData[$baseRow]['E'];
                     if (!$model->save()) {
                         \Yii::$app->getSession()->setFlash('danger', 'Import Data Testing Gagal Disimpan.');
                         return $this->redirect(['testing']);
@@ -173,7 +165,7 @@ class DataTrainingController extends Controller
 
     public function actionTraining()
     {
-        ini_set('max_execution_time', 5000);
+        ini_set('max_execution_time', 4000);
         $modelImport = new \yii\base\DynamicModel([
             'fileImport' => 'File Import',
         ]);
@@ -189,21 +181,13 @@ class DataTrainingController extends Controller
                 $sheetData = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
                 $baseRow = 2;
                 while (!empty($sheetData[$baseRow]['A'])) {
-                    $model = new \frontend\models\DataTraining();
+                    $model = new \frontend\models\DataTrainingFeature();
 
-                    $model->ph_maximum = (string) $sheetData[$baseRow]['A'];
-                    $model->ph_minimum = (string) $sheetData[$baseRow]['B'];
-                    $model->ph_avg = (string) $sheetData[$baseRow]['C'];
-                    $model->kelembabanTanah_maximum = (string) $sheetData[$baseRow]['D'];
-                    $model->kelembabanTanah_minimum = (string) $sheetData[$baseRow]['E'];
-                    $model->kelembabanTanah_avg = (string) $sheetData[$baseRow]['F'];
-                    $model->suhu_max = (string) $sheetData[$baseRow]['G'];
-                    $model->suhu_min = (string) $sheetData[$baseRow]['H'];
-                    $model->suhu_avg = (string) $sheetData[$baseRow]['I'];
-                    $model->kelembabanUdara_maximum = (string) $sheetData[$baseRow]['J'];
-                    $model->kelembabanUdara_minimum = (string) $sheetData[$baseRow]['K'];
-                    $model->kelembabanUdara_avg = (string) $sheetData[$baseRow]['L'];
-                    $model->kondisi_actual = (string) $sheetData[$baseRow]['M'];
+                    $model->suhu_min = (string) $sheetData[$baseRow]['A'];
+                    $model->kelembabanUdara_maximum = (string) $sheetData[$baseRow]['B'];
+                    $model->kelembabanUdara_minimum = (string) $sheetData[$baseRow]['C'];
+                    $model->kelembabanUdara_avg = (string) $sheetData[$baseRow]['D'];
+                    $model->kondisi_actual = (string) $sheetData[$baseRow]['E'];
                     if (!$model->save()) {
                         \Yii::$app->getSession()->setFlash('danger', 'Import Data Training Gagal Disimpan.');
                         return $this->redirect(['training']);
@@ -292,7 +276,7 @@ class DataTrainingController extends Controller
             //print_r($result[0]);
 
             //$updateQuery = "UPDATE data_testf SET kondisi_predict = '$result[0]' WHERE id = '$id_data'";
-            $updateQuery = Yii::$app->db->createCommand("UPDATE data_testing SET kondisi_predict = '$result[0]' WHERE idTesting = '$id_data'");
+            $updateQuery = Yii::$app->db->createCommand("UPDATE data_testing_feature SET kondisi_predict = '$result[0]' WHERE idTesting = '$id_data'");
 
             try {
                 $updateQuery->execute();
@@ -302,24 +286,16 @@ class DataTrainingController extends Controller
             }
         }
         //Test case
-        $result = Yii::$app->db->createCommand('select * from data_testing')->queryAll();
+        $result = Yii::$app->db->createCommand('select * from data_testing_feature')->queryAll();
 
         foreach ($result as $row) {
 
             //Classification factor
             $n = 'kondisi_actual';
             //table name
-            $table = 'data_training';
+            $table = 'data_training_feature';
             $X = array(
-                'ph_maximum' => $row['ph_maximum'],
-                'ph_minimum' => $row['ph_minimum'],
-                'ph_avg' => $row['ph_avg'],
-                'kelembabanTanah_maximum' => $row['kelembabanTanah_maximum'],
-                'kelembabanTanah_minimum' => $row['kelembabanTanah_minimum'],
-                'kelembabanTanah_avg' => $row['kelembabanTanah_avg'],
-                'suhu_max' => $row['suhu_max'],
                 'suhu_min' => $row['suhu_min'],
-                'suhu_avg' => $row['suhu_avg'],
                 'kelembabanUdara_minimum' => $row['kelembabanUdara_minimum'],
                 'kelembabanUdara_maximum' => $row['kelembabanUdara_maximum'],
                 'kelembabanUdara_avg' => $row['kelembabanUdara_avg']
@@ -331,10 +307,10 @@ class DataTrainingController extends Controller
 
     public function actionPredict()
     {
-        $searchModel = new DataTestingSearch();
+        $searchModel = new DataTestingFeatureSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $countSehat = DataTesting::find()->count();
-        $countTidakSehat = DataTesting::find()->count();
+        $countSehat = DataTestingFeature::find()->count();
+        $countTidakSehat = DataTestingFeature::find()->count();
 
         return $this->render('predict', [
             'searchModel' => $searchModel,
@@ -345,15 +321,15 @@ class DataTrainingController extends Controller
     }
 
     /**
-     * Finds the DataTraining model based on its primary key value.
+     * Finds the DataTrainingFeature model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return DataTraining the loaded model
+     * @return DataTrainingFeature the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = DataTraining::findOne($id)) !== null) {
+        if (($model = DataTrainingFeature::findOne($id)) !== null) {
             return $model;
         }
 

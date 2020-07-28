@@ -98,8 +98,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             <h2><b>Prediksi Data</b></h2>
 
                             <?php
-                            $sehat = count(Yii::$app->db->createCommand("SELECT * from data_testing as num WHERE kondisi_predict LIKE 'Sehat'")->queryAll());
-                            $tidakSehat = count(Yii::$app->db->createCommand("SELECT * from data_testing as num WHERE kondisi_predict LIKE 'Tidak Sehat'")->queryAll());
+                            $sehat = count(Yii::$app->db->createCommand("SELECT * from data_testing_feature as num WHERE kondisi_predict LIKE 'Sehat'")->queryAll());
+                            $tidakSehat = count(Yii::$app->db->createCommand("SELECT * from data_testing_feature as num WHERE kondisi_predict LIKE 'Tidak Sehat'")->queryAll());
                             // echo count($c);
                             // die();
                             ?>
