@@ -62,9 +62,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function ($model) {
                     if ($model->kondisi_actual == "Sehat") {
-                        return '<b class="text-success">Sehat</b>';
+                        return '<center><b class="text-success">Sehat</b></center>';
                     } else if ($model->kondisi_actual == "Tidak Sehat") {
-                        return '<b class="text-danger">Tidak Sehat</b>';
+                        return '<center><b class="text-danger">Tidak Sehat</b></center>';
                     } else {
                         return '<b class="text-warning"> - </b>';
                     }
@@ -77,9 +77,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
                 'value' => function ($model) {
                     if ($model->kondisi_predict == "Sehat") {
-                        return '<b class="text-success">Sehat</b>';
+                        return '<center><b class="text-success">Sehat</b></center>';
                     } else if ($model->kondisi_predict == "Tidak Sehat") {
-                        return '<b class="text-danger">Tidak Sehat</b>';
+                        return '<center><b class="text-danger">Tidak Sehat</b></center>';
                     } else {
                         return '<b class="text-warning"> - </b>';
                     }
