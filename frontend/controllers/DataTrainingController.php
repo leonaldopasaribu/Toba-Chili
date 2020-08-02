@@ -325,8 +325,8 @@ class DataTrainingController extends Controller
                 'kelembabanUdara_avg' => $row['kelembabanUdara_avg']
             );
             classify($X, $n, $table, $row['idTesting']);
-            return $this->redirect(['predict']);
         }
+        return $this->redirect(['predict']);
     }
 
     public function actionPredict()

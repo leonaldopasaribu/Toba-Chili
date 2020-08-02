@@ -288,7 +288,7 @@ class DataTrainingFeatureController extends Controller
         //Test case
         $result = Yii::$app->db->createCommand('select * from data_testing_feature')->queryAll();
 
-        foreach ($result as $row) {
+        foreach($result as $row) {
 
             //Classification factor
             $n = 'kondisi_actual';
@@ -301,8 +301,8 @@ class DataTrainingFeatureController extends Controller
                 'kelembabanUdara_avg' => $row['kelembabanUdara_avg']
             );
             classify($X, $n, $table, $row['idTesting']);
-            return $this->redirect(['predict']);
         }
+        return $this->redirect(['predict']);
     }
 
     public function actionPredict()
