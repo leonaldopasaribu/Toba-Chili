@@ -182,7 +182,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="inner">
                         <center>
                             <h2><b>Prediksi Data</b></h2>
-
                             <?php
                             $tp = count(Yii::$app->db->createCommand("SELECT * from data_testing as num WHERE kondisi_actual LIKE 'Sehat'  AND kondisi_predict LIKE 'Sehat'")->queryAll());
                             $tn = count(Yii::$app->db->createCommand("SELECT * from data_testing as num WHERE kondisi_actual LIKE 'Tidak Sehat'  AND kondisi_predict    LIKE 'Tidak Sehat'")->queryAll());
